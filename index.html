@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de tu Iglesia</title>
+    <style>
+        /* =========================================
+           1. VARIABLES CSS (Edita los colores aquí)
+           ========================================= */
+        :root {
+            --primary-color: #2c3e50;    /* Color principal (ej. Encabezados, Footer) */
+            --accent-color: #e74c3c;     /* Color de acento (ej. Botones, Enlaces) */
+            --bg-light: #f9fafb;         /* Fondo claro para secciones */
+            --bg-dark: #1f2937;          /* Fondo oscuro */
+            --text-main: #374151;        /* Color de texto principal */
+            --text-light: #ffffff;       /* Color de texto sobre fondos oscuros */
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;         /* Ancho máximo del contenido */
+        }
+
+        /* =========================================
+           2. ESTILOS BASE Y RESET
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* Botones modulares */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: #c0392b; /* Un tono más oscuro del acento */
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-light);
+            color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           3. NAVEGACIÓN (HEADER)
+           ========================================= */
+        header {
+            background-color: var(--text-light);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           4. SECCIÓN HERO (Principal)
+           ========================================= */
+        .hero {
+            /* Sustituye el gradiente por una URL de imagen si lo deseas:
+               background: url('tu-imagen.jpg') center/cover; */
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?auto=format&fit=crop&q=80') center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        /* =========================================
+           5. SECCIONES COMUNES
+           ========================================= */
+        .section {
+            padding: 80px 0;
+        }
+
+        .bg-light {
+            background-color: var(--bg-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+        }
+
+        /* =========================================
+           6. GRID DE TARJETAS (Ministerios / Eventos)
+           ========================================= */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: #ddd; /* Color por defecto si no hay imagen */
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* =========================================
+           7. HORARIOS Y UBICACIÓN
+           ========================================= */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .info-box {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* =========================================
+           8. FOOTER
+           ========================================= */
+        footer {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-grid h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        /* =========================================
+           9. RESPONSIVE DESIGN (Móviles)
+           ========================================= */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Aquí podrías añadir un menú hamburguesa con JS */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">IGLESIA LOGO</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#visitanos">Visítanos</a></li>
+                    <li><a href="#ministerios">Ministerios</a></li>
+                    <li><a href="#mensajes">Mensajes</a></li>
+                    <li><a href="#dar" class="btn btn-primary" style="padding: 8px 16px;">Dar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO (BIENVENIDA) -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h1>Bienvenidos a Casa</h1>
+            <p>Un lugar para encontrar esperanza, propósito y una comunidad que se siente como familia. Únete a nosotros este domingo.</p>
+            <div class="hero-buttons">
+                <a href="#visitanos" class="btn btn-primary">Planear una Visita</a>
+                <a href="#en-vivo" class="btn btn-outline">Ver en Vivo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE HORARIOS Y UBICACIÓN -->
+    <section id="visitanos" class="section">
+        <div class="container">
+            <h2 class="section-title">Acompáñanos este Domingo</h2>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>Horarios de Servicio</h3>
+                    <p>Domingos: 9:00 AM y 11:30 AM</p>
+                    <p>Reunión de Jóvenes: Viernes 7:00 PM</p>
+                    <br>
+                    <h3>Ubicación</h3>
+                    <p>Calle Principal 123, Ciudad, País</p>
+                </div>
+                <div class="map-container">
+                    <!-- Aquí puedes integrar un iframe de Google Maps -->
+                    <div style="background: #e5e7eb; height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        [Espacio para Google Maps]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE MINISTERIOS / PRÓXIMOS PASOS -->
+    <section id="ministerios" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Conéctate y Crece</h2>
+            <div class="grid-cards">
+                
+                <!-- Tarjeta 1 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80" alt="Ministerio de Niños" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Niños (Kids)</h3>
+                        <p>Un ambiente seguro y divertido donde los más pequeños aprenden sobre el amor de Dios a su nivel.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953eb1b5ce?auto=format&fit=crop&q=80" alt="Grupos Pequeños" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Grupos Conexión</h3>
+                        <p>La vida es mejor juntos. Encuentra una comunidad para compartir, estudiar y crecer durante la semana.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?auto=format&fit=crop&q=80" alt="Voluntariado" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Sirve con Nosotros</h3>
+                        <p>Descubre tus dones y únete a uno de nuestros equipos de voluntariado para marcar la diferencia.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>IGLESIA LOGO</h4>
+                    <p>Transformando vidas a través del amor y la comunidad.</p>
+                </div>
+                <div>
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#mensajes">Sermones</a></li>
+                        <li><a href="#eventos">Eventos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contacto</h4>
+                    <p>Email: info@tuiglesia.com</p>
+                    <p>Tel: +1 234 567 890</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #374151; padding-top: 20px; font-size: 0.9rem;">
+                &copy; 2026 Nombre de Tu Iglesia. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
